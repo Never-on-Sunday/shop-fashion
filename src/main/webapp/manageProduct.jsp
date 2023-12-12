@@ -69,7 +69,7 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 			%>
 			<div class="col-md-3 my-3">
 				<div class="card w-100">
-					<img class="card-img-top" src="product-images/<%=p.getImage()%>"
+					<img class="card-img-top" src="<%=p.getImage()%>"
 						alt="Card image cap">
 					<div class="card-body">
 						<h5 class="card-title"><%=p.getName()%></h5>

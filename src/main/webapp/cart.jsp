@@ -53,7 +53,7 @@ double total = (double) request.getAttribute("total");
 					<td><%=dcf.format(c.getPrice())%></td>
 					<td>
 						<form action="OrderNowServlet" method="post" class="form-inline">
-							<input type="hidden" name="id" value="<%=c.getId()%>"
+							<input type="hidden" name="productId" value="<%=c.getId()%>"
 								class="form-input">
 							<div class="form-group d-flex justify-content-between">
 								<a class="btn bnt-sm btn-incre"

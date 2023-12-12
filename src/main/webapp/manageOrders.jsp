@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="model.bean.OrderStatus"%>
 <%
 List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders");
 request.setAttribute("currentPageServlet", "ManageOrdersServlet");
+double total = (double) request.getAttribute("totalOrderIncome");
+DecimalFormat dcf = new DecimalFormat("#.##");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +17,18 @@ request.setAttribute("currentPageServlet", "ManageOrdersServlet");
 .pickDateContanier {
 	display: flex;
 	margin: 0px 50px 0px 50px;
+}
+
+.colorShipping {
+	background-color: #28a745;
+}
+
+.colorDone {
+	background-color: #dc3545;
+}
+
+.colorCancel {
+	background-color: #495057;
 }
 </style>
 </head>
@@ -33,6 +49,13 @@ request.setAttribute("currentPageServlet", "ManageOrdersServlet");
 			<div class="buttonConfirm">
 				<button type="submit" class="btn btn-primary"
 					style="margin: 10px 0px 0px 0px; color: white; background-color: #28a745;">Confirm</button>
+			</div>
+
+			<div
+				style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; width: -webkit-fill-available;">
+				<h3>
+					Total Income: $
+					<%=total%></h3>
 			</div>
 		</div>
 	</form>
@@ -77,9 +100,14 @@ request.setAttribute("currentPageServlet", "ManageOrdersServlet");
 									<td><%=orderDisplay.getUser().getusername()%></td>
 									<td><%=orderDisplay.getOrder().getQuantity()%></td>
 									<td><%=orderDisplay.getOrder().getDate()%></td>
-									<td><span class="badge badge-success"><%=orderDisplay.getOrder().getStatus()%></span></td>
+									<td><span
+										class="badge badge-success color<%=orderDisplay.getOrder().getStatus()%>"><%=orderDisplay.getOrder().getStatus()%></span></td>
 									<td><%=orderDisplay.getOrder().getOrderPrice()%></td>
-									<td><i class="fa fa-ellipsis-h text-black-50"></i></td>
+									<%@ include file="/includes/editOrderButton.jsp"%>
+									<td><button type="button" class="btn btn-primary"
+											data-toggle="modal"
+											data-target="#editOrderButton<%=orderDisplay.getOrder().getOrderId()%>">Edit</button></td>
+
 								</tr>
 								<%
 								}

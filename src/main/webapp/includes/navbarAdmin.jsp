@@ -7,7 +7,9 @@ User authUser = (User) request.getSession().getAttribute("authUser");
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container">
-		<a class="navbar-brand" href="index.jsp">E-Commerce Cart</a>
+		<img src="./product-images/logoKC.png" class="rounded" alt="LogoKC"
+			style="width: 50px;"> <a class="navbar-brand" href="index.jsp">Fashion
+			shop KC</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -22,6 +24,8 @@ User authUser = (User) request.getSession().getAttribute("authUser");
 				<%
 				if (authUser != null) {
 				%>
+				<li class="nav-item"><a class="nav-link"
+					href="ManageAccountsServlet">Manage Accounts</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="ManageOrdersServlet">Manage Orders</a></li>
 				<li class="nav-item"><a class="nav-link" href="LogoutServlet">Logout</a></li>

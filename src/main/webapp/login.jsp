@@ -14,27 +14,38 @@ if (auth != null) {
 <html>
 <head>
 <%@ include file="/includes/head.jsp"%>
-<title>E-Commerce Cart</title>
+<title>Login</title>
+<style>
+#loginContainer {
+	padding: 0px 300px;
+}
+</style>
 </head>
 
 <body>
 	<%@include file="/includes/navbar.jsp"%>
 
-	<div class="container">
+	<div id="loginContainer">
 		<div class="card w-50 mx-auto my-5">
 			<div class="card-header text-center">User Login</div>
 			<div class="card-body">
 				<form action="LoginServlet" method="post">
 					<div class="form-group">
-						<label>User name</label> <input type="user"
-							name="login-username" class="form-control" placeholder="User name">
+						<label>User name</label> <input type="user" name="login-username"
+							class="form-control" placeholder="User name">
 					</div>
 					<div class="form-group">
 						<label>Password</label> <input type="password"
 							name="login-password" class="form-control" placeholder="Password">
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Login</button>
+						<button type="submit" class="btn btn-primary">Sign in</button>
+					</div>
+					
+					<div class="text-center" style="margin: 20px 0px 0px 0px">
+						<p>
+							Not a member? <a href="register.jsp">Register</a>
+						</p>
 					</div>
 				</form>
 			</div>

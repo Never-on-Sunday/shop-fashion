@@ -8,15 +8,14 @@
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
-User auth = (User) request.getSession().getAttribute("auth");
 
-List<Order> orders = (List<Order>) request.getAttribute("orders");
+List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<%@ include file="/includes/head.jsp"%>
+<title>Orders</title>
 </head>
 <body>
 	<%@include file="/includes/navbar.jsp"%>
@@ -25,11 +24,13 @@ List<Order> orders = (List<Order>) request.getAttribute("orders");
 		<table class="table table-light">
 			<thead>
 				<tr>
-					<th scope="col">Date</th>
-					<th scope="col">Name</th>
-					<th scope="col">Category</th>
+					<th scope="col">OrderID</th>
+					<th scope="col">ProductID</th>
+					<th scope="col">ProductName</th>
 					<th scope="col">Quantity</th>
 					<th scope="col">Price</th>
+					<th scope="col">Date</th>
+					<th scope="col">Status</th>
 					<th scope="col">Cancel</th>
 				</tr>
 			</thead>
@@ -37,16 +38,18 @@ List<Order> orders = (List<Order>) request.getAttribute("orders");
 
 				<%
 				if (orders != null) {
-					for (Order o : orders) {
+					for (OrderDisplay orderDisplay : orders) {
 				%>
 				<tr>
-					<td><%=o.getDate()%></td>
-					<td><%=o.getName()%></td>
-					<td><%=o.getCategory()%></td>
-					<td><%=o.getQunatity()%></td>
-					<td><%=dcf.format(o.getPrice())%></td>
+					<td><%=orderDisplay.getOrder().getOrderId()%></td>
+					<td><%=orderDisplay.getProduct().getId()%></td>
+					<td><%=orderDisplay.getProduct().getName()%></td>
+					<td><%=orderDisplay.getOrder().getQuantity()%></td>
+					<td><%=orderDisplay.getOrder().getOrderPrice()%></td>
+					<td><%=orderDisplay.getOrder().getDate()%></td>
+					<td><span class="badge badge-success"><%=orderDisplay.getOrder().getStatus()%></span></td>
 					<td><a class="btn btn-sm btn-danger"
-						href="CancelOrderServlet?id=<%=o.getOrderId()%>">Cancel Order</a></td>
+						href="CancelOrderServlet?id=<%=orderDisplay.getOrder().getOrderId()%>">Cancel Order</a></td>
 				</tr>
 				<%
 				}

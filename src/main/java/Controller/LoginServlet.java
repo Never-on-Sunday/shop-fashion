@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 				}
 
 			} else {
-				out.println("There is no user");
+				response.sendRedirect("login.jsp");
 			}
 		} catch (Exception e) {
 			System.out.println("error: " + e.getMessage());

@@ -45,6 +45,11 @@ public class AddAProduct extends HttpServlet {
 			String category = request.getParameter("product_category");
 			String price = request.getParameter("product_price");
 			String image = request.getParameter("filebutton");
+			if (image == null || image.equals("")) {
+				image = request.getParameter("product_image");
+			} else {
+				image = "product-images/" + image;
+			}
 			Product product = new Product();
 			product.setName(name);
 			product.setCategory(category);

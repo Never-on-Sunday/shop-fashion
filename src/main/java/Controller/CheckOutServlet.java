@@ -2,21 +2,24 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.bean.Cart;
 import model.bean.Order;
+import model.bean.Product;
 import model.bean.User;
-import model.dao.HelpConnectDB;
-import model.dao.OrderDAO;
+import model.bo.OrderBO;
+import model.bo.PersonalInforBO;
+import model.bo.ProductBO;
 
 /**
  * Servlet implementation class CheckOutServlet
@@ -24,34 +27,42 @@ import model.dao.OrderDAO;
 @WebServlet("/CheckOutServlet")
 public class CheckOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	OrderBO orderBO = new OrderBO();
+	ProductBO productBO = new ProductBO();
+	PersonalInforBO personalInfor = new PersonalInforBO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (PrintWriter out = response.getWriter()) {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date();
-			ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart_list");
-			User auth = (User) request.getSession().getAttribute("auth");
-			if (cart_list != null && auth != null) {
-				for (Cart c : cart_list) {
-					Order order = new Order();
-					order.setId(c.getId());
-					order.setUid(auth.getId());
-					order.setQunatity(c.getQuantity());
-					order.setDate(formatter.format(date));
+			// check auth
+			HttpSession ses = request.getSession();
+			User user = (User) ses.getAttribute("authUser");
+			if (user == null || !user.getrole().equals("client")) {
+				response.sendRedirect("index.jsp");
+				return;
+			}
 
-					OrderDAO oDao = new OrderDAO(HelpConnectDB.getConnection());
-					boolean result = oDao.insertOrder(order);
-					if (!result)
-						break;
+			LocalDate currentDate = LocalDate.now();
+			Date sqlDate = Date.valueOf(currentDate);
+			ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart_list");
+			if (cart_list != null) {
+				for (Cart cart : cart_list) {
+					Order order = new Order();
+					order.setProductID(cart.getId());
+					order.setUid(user.getId());
+					order.setQuantity(cart.getQuantity());
+					order.setDate(sqlDate);
+					order.setStatus("Shipping");
+					order.setAddress(personalInfor.getPersonalInforByAccID(user.getId()).getAddress());
+					Product product = productBO.getAProduct(order.getProductID());
+					order.setOrderPrice(product.getPrice() * order.getQuantity());
+
+					int res = orderBO.addAnOrder(order);
 				}
 				cart_list.clear();
-				response.sendRedirect("orders.jsp");
+				response.sendRedirect("GetOrdersServlet");
 			} else {
-				if (auth == null) {
-					response.sendRedirect("login.jsp");
-				}
-				response.sendRedirect("cart.jsp");
+				response.sendRedirect("GetCartProductsServlet");
 			}
 		} catch (Exception e) {
 

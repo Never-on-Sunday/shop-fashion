@@ -2,21 +2,24 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.bean.Cart;
 import model.bean.Order;
+import model.bean.Product;
 import model.bean.User;
-import model.dao.HelpConnectDB;
-import model.dao.OrderDAO;
+import model.bo.OrderBO;
+import model.bo.PersonalInforBO;
+import model.bo.ProductBO;
 
 /**
  * Servlet implementation class OrderNowServlet
@@ -24,47 +27,50 @@ import model.dao.OrderDAO;
 @WebServlet("/OrderNowServlet")
 public class OrderNowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	OrderBO orderBO = new OrderBO();
+	ProductBO productBO = new ProductBO();
+	PersonalInforBO personalInfor = new PersonalInforBO();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date();
-
-			User auth = (User) request.getSession().getAttribute("auth");
-
-			if (auth != null) {
-				String productId = request.getParameter("id");
-				int productQuantity = Integer.parseInt(request.getParameter("quantity"));
-				if (productQuantity <= 0) {
-					productQuantity = 1;
-				}
-				Order orderModel = new Order();
-				orderModel.setId(Integer.parseInt(productId));
-				orderModel.setUid(auth.getId());
-				orderModel.setQunatity(productQuantity);
-				orderModel.setDate(formatter.format(date));
-
-				OrderDAO OrderDAO = new OrderDAO(HelpConnectDB.getConnection());
-				boolean result = OrderDAO.insertOrder(orderModel);
-				if (result) {
-					ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart_list");
-					if (cart_list != null) {
-						for (Cart c : cart_list) {
-							if (c.getId() == Integer.parseInt(productId)) {
-								cart_list.remove(cart_list.indexOf(c));
-								break;
-							}
-						}
-					}
-					response.sendRedirect("orders.jsp");
-				} else {
-					out.println("order failed");
-				}
-			} else {
-				response.sendRedirect("login.jsp");
+			// check auth
+			HttpSession ses = request.getSession();
+			User user = (User) ses.getAttribute("authUser");
+			if (user == null || !user.getrole().equals("client")) {
+				response.sendRedirect("index.jsp");
+				return;
 			}
+
+			LocalDate currentDate = LocalDate.now();
+			Date sqlDate = Date.valueOf(currentDate);
+			int productId = Integer.parseInt(request.getParameter("productId"));
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			if (quantity <= 0) {
+				quantity = 1;
+			}
+			Order order = new Order();
+			order.setProductID(productId);
+			order.setUid(user.getId());
+			order.setQuantity(quantity);
+			order.setDate(sqlDate);
+			order.setStatus("Shipping");
+			order.setAddress(personalInfor.getPersonalInforByAccID(user.getId()).getAddress());
+			Product product = productBO.getAProduct(order.getProductID());
+			order.setOrderPrice(product.getPrice() * order.getQuantity());
+			int res = orderBO.addAnOrder(order);
+
+			ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart_list");
+			if (cart_list != null) {
+				for (Cart c : cart_list) {
+					if (c.getId() == productId) {
+						cart_list.remove(cart_list.indexOf(c));
+						break;
+					}
+				}
+			}
+			response.sendRedirect("GetOrdersServlet");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

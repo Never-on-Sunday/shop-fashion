@@ -10,6 +10,7 @@ public class Order {
 	private Date date;
 	private String status;
 	private double orderPrice;
+	private String address;
 
 	public Order() {
 	}
@@ -83,5 +84,13 @@ public class Order {
 
 	public void setOrderPrice(double orderPrice) {
 		this.orderPrice = orderPrice;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.bean.Product;
+import model.bean.User;
 import model.bo.ProductBO;
 
 /**
@@ -26,6 +28,14 @@ public class GetAllProductsServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try (PrintWriter pw = response.getWriter()) {
+			// check auth
+			HttpSession ses = request.getSession();
+			User user = (User) ses.getAttribute("authUser");
+			if (user != null && user.getrole().equals("admin")) {
+				response.sendRedirect("ManageProductsServlet");
+				return;
+			}
+
 			String page = (String) request.getParameter("page");
 			int idxPage = 1; // for someone first go to page
 			// if someone click on prev or next page
