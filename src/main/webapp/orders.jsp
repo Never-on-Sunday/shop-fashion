@@ -48,8 +48,18 @@ List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders
 					<td><%=orderDisplay.getOrder().getOrderPrice()%></td>
 					<td><%=orderDisplay.getOrder().getDate()%></td>
 					<td><span class="badge badge-success"><%=orderDisplay.getOrder().getStatus()%></span></td>
+					<%
+					String status = orderDisplay.getOrder().getStatus();
+					%>
+					<%
+					if (status.equals("Handling")) {
+					%>
 					<td><a class="btn btn-sm btn-danger"
-						href="CancelOrderServlet?id=<%=orderDisplay.getOrder().getOrderId()%>">Cancel Order</a></td>
+						href="CancelOrderServlet?id=<%=orderDisplay.getOrder().getOrderId()%>">Cancel
+							Order</a></td>
+					<%
+					}
+					%>
 				</tr>
 				<%
 				}

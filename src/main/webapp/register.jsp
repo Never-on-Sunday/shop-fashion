@@ -52,7 +52,21 @@
 							<div class="card-body p-5">
 								<h2 class="text-uppercase text-center mb-5">Create an
 									account</h2>
-
+								<!-- Show success mess -->
+								<%
+ 								String status = (String) request.getAttribute("status");
+								if (status != null) {
+									request.removeAttribute("status");
+								%>
+								<div class="alert alert-success">
+									<a href="#" class="close" data-dismiss="alert"
+										aria-label="close" title="close">×</a> <strong>Message!
+									</strong>
+									<%=status%> 
+								</div>
+								<%
+								}
+								%>
 								<form action="RegisterServlet" method="post">
 
 									<div class="form-outline mb-4">

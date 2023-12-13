@@ -9,6 +9,10 @@ import model.dao.UserDAO;
 public class UserBO {
 	UserDAO uD = new UserDAO(HelpConnectDB.getConnection());
 
+	public User getAUserByUserName(String username) {
+		return uD.getAUserByUserName(username);
+	}
+
 	public List<User> getAllUsers() {
 		return uD.getAllUsers();
 	}

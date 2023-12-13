@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html;charset=UTF-8");
 		try (PrintWriter out = response.getWriter()) {
 			String username = request.getParameter("login-username");
 			String password = request.getParameter("login-password");
@@ -46,7 +46,9 @@ public class LoginServlet extends HttpServlet {
 				}
 
 			} else {
-				response.sendRedirect("login.jsp");
+				request.setAttribute("status", "Wrong username or password!");
+				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
+				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
 			System.out.println("error: " + e.getMessage());

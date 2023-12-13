@@ -19,6 +19,10 @@ DecimalFormat dcf = new DecimalFormat("#.##");
 	margin: 0px 50px 0px 50px;
 }
 
+.colorHandling{
+	background-color: #ffc107;
+}
+
 .colorShipping {
 	background-color: #28a745;
 }

@@ -30,6 +30,20 @@ if (auth != null) {
 			<div class="card-header text-center">User Login</div>
 			<div class="card-body">
 				<form action="LoginServlet" method="post">
+					<!-- Show success mess -->
+					<%
+					String status = (String) request.getAttribute("status");
+					if (status != null) {
+						request.removeAttribute("status");
+					%>
+					<div class="alert alert-success">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close"
+							title="close">x</a> <strong>Message! </strong>
+						<%=status%>
+					</div>
+					<%
+					}
+					%>
 					<div class="form-group">
 						<label>User name</label> <input type="user" name="login-username"
 							class="form-control" placeholder="User name">
@@ -41,7 +55,7 @@ if (auth != null) {
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">Sign in</button>
 					</div>
-					
+
 					<div class="text-center" style="margin: 20px 0px 0px 0px">
 						<p>
 							Not a member? <a href="register.jsp">Register</a>

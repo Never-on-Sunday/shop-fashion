@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,18 @@ public class RegisterServlet extends HttpServlet {
 			String address = request.getParameter("address");
 			String phoneNumber = request.getParameter("phoneNumber");
 
-			User user = new User();
+			User user = null;
+			// check if username is already existed
+			user = userBO.getAUserByUserName(userName);
+			if (user != null) {
+				String status = "Username has been already existed";
+				request.setAttribute("status", status);
+				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/register.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+
+			user = new User();
 			user.setusername(userName);
 			user.setpassword(password);
 			user.setrole("client");

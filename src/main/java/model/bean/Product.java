@@ -6,6 +6,8 @@ public class Product {
 	private String category;
 	private Double price;
 	private String image;
+	private String description;
+	private String status;
 
 	public Product() {
 	}
@@ -63,6 +65,22 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", image="
 				+ image + "]";
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

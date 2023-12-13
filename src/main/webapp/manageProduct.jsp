@@ -53,7 +53,7 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 		%>
 		<div class="alert alert-success">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close"
-				title="close">×</a> <strong>Success! </strong>
+				title="close">x</a> <strong>Success! </strong>
 			<%=status%>
 		</div>
 		<%
@@ -78,6 +78,12 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 						<h6 class="category">
 							Category:
 							<%=p.getCategory()%></h6>
+						<h6 class="price">
+							Description:
+							<%=p.getDescription()%></h6>
+						<h6 class="category">
+							Status:
+							<%=p.getStatus()%></h6>
 						<div class="mt-3 d-flex justify-content-between">
 							<%@ include file="/includes/editProductButton.jsp"%>
 							<button type="button" class="btn btn-primary" data-toggle="modal"

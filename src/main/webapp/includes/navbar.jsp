@@ -26,7 +26,7 @@ User authUser = (User) request.getSession().getAttribute("authUser");
 				if (authUser != null && authUser.getrole().equals("client")) {
 				%>
 				<li class="nav-item"><a class="nav-link"
-					href="GetPersonalAccount">Account</a></li>
+					href="GetPersonalAccountServlet">Account</a></li>
 				<%
 				}
 				%>

@@ -133,7 +133,7 @@ body {
 				<div class="card mb-4">
 					<div class="card-header">Account Details</div>
 					<div class="card-body">
-						<form action="UpdatePersonalAccount" method="get">
+						<form action="UpdatePersonalAccountServlet" method="get">
 							<!-- Form Group (username)-->
 							<div class="mb-3">
 								<label class="small mb-1" for="inputUsername">Your Full
@@ -150,7 +150,7 @@ body {
 										Name</label> <input class="form-control" id="inputFirstName"
 										type="text" name="userName"
 										placeholder="<%=accountDisplay.getUser().getusername()%>"
-										value="<%=accountDisplay.getUser().getusername()%>">
+										value="<%=accountDisplay.getUser().getusername()%>" readonly>
 								</div>
 								<!-- Form Group (last name)-->
 								<div class="col-md-6">

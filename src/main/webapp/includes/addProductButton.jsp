@@ -38,8 +38,8 @@
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="addProductButton" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addProductButton" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -64,8 +64,8 @@
 									ID</label>
 								<div class="col-md-4">
 									<input id="product_id" name="product_id"
-										value="<%=request.getAttribute("nextProductID") %>" class="form-control input-md"
-										required="" type="text" readonly>
+										value="<%=request.getAttribute("nextProductID")%>"
+										class="form-control input-md" required="" type="text" readonly>
 
 								</div>
 							</div>
@@ -100,6 +100,31 @@
 										type="text">
 
 								</div>
+							</div>
+							<!-- Text input-->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="description">Description</label>
+								<div class="col-md-4">
+									<input id="description" name="description"
+										placeholder="Description" class="form-control input-md"
+										required="" type="text">
+
+								</div>
+							</div>
+							<!-- Select Input-->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="selectStatus">Status</label>
+								<select name="selectStatus" class="form-select"
+									aria-label="Default select example" style="margin-left: 16px;">
+									<option value="InStock" selected>InStock</option>
+									<%
+									for (StatusProduct statusProduct : StatusProduct.values()) {
+									%>
+									<option value="<%=statusProduct.name()%>"><%=statusProduct.name()%></option>
+									<%
+									}
+									%>
+								</select>
 							</div>
 							<!-- File Button -->
 							<div class="form-group">

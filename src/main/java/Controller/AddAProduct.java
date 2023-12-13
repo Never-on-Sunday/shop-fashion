@@ -50,11 +50,16 @@ public class AddAProduct extends HttpServlet {
 			} else {
 				image = "product-images/" + image;
 			}
+			String description = request.getParameter("description");
+			String status = request.getParameter("selectStatus");
+
 			Product product = new Product();
 			product.setName(name);
 			product.setCategory(category);
 			product.setPrice(Double.parseDouble(price)); // check input double
 			product.setImage(image);
+			product.setDescription(description);
+			product.setStatus(status);
 			int res = productBO.addAProduct(product);
 
 			request.setAttribute("status", "Add a product");

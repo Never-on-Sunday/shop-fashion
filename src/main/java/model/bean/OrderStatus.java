@@ -1,5 +1,5 @@
 package model.bean;
 
 public enum OrderStatus {
-	Shipping, Cancel, Done
+	Handling, Shipping, Cancel, Done
 }

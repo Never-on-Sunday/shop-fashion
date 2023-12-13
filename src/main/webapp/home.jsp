@@ -57,10 +57,21 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 						<h6 class="category">
 							Category:
 							<%=p.getCategory()%></h6>
+						<h6 class="price">
+							Description: <%=p.getDescription()%></h6>
+						<h6 class="category">
+							Status:
+							<%=p.getStatus() %></h6>
+						<%String readOnly = "nones";
+						if(p.getStatus().equals("SoldOut")){
+							readOnly = "none";
+						}
+						%>
 						<div class="mt-3 d-flex justify-content-between">
-							<a class="btn btn-dark" href="AddToCartServlet?id=<%=p.getId()%>">Add
+							<a class="btn btn-dark" href="AddToCartServlet?id=<%=p.getId()%>" style="display: <%=readOnly%>;">Add
 								to Cart</a> <a class="btn btn-primary"
-								href="OrderNowServlet?quantity=1&productId=<%=p.getId()%>">Buy Now</a>
+								href="OrderNowServlet?quantity=1&productId=<%=p.getId()%>" style="display: <%=readOnly%>;">Buy
+								Now</a>
 						</div>
 					</div>
 				</div>

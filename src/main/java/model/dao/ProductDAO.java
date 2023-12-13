@@ -56,13 +56,15 @@ public class ProductDAO {
 	public int updateProduct(Product product) {
 		int res = 0;
 		try {
-			query = "UPDATE products SET name=?, category=?, price=?, image=? WHERE id=?";
+			query = "UPDATE products SET name=?, category=?, price=?, image=?, description=?, status=? WHERE id=?";
 			pst = this.con.prepareStatement(query);
 			pst.setString(1, product.getName());
 			pst.setString(2, product.getCategory());
 			pst.setDouble(3, product.getPrice());
 			pst.setString(4, product.getImage());
-			pst.setInt(5, product.getId());
+			pst.setString(5, product.getDescription());
+			pst.setString(6, product.getStatus());
+			pst.setInt(7, product.getId());
 			res = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,12 +94,14 @@ public class ProductDAO {
 	public int addAProduct(Product product) {
 		int res = 0;
 		try {
-			query = "INSERT INTO products (name, category, price, image) VALUES (?, ?, ?, ?)";
+			query = "INSERT INTO products (name, category, price, image, description, status) VALUES (?, ?, ?, ?, ?, ?)";
 			pst = this.con.prepareStatement(query);
 			pst.setString(1, product.getName());
 			pst.setString(2, product.getCategory());
 			pst.setDouble(3, product.getPrice());
 			pst.setString(4, product.getImage());
+			pst.setString(5, product.getDescription());
+			pst.setString(6, product.getStatus());
 			res = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,6 +125,8 @@ public class ProductDAO {
 				row.setCategory(rs.getString("category"));
 				row.setPrice(rs.getDouble("price"));
 				row.setImage(rs.getString("image"));
+				row.setDescription(rs.getString("description"));
+				row.setStatus(rs.getString("status"));
 
 				product.add(row);
 			}
@@ -149,6 +155,8 @@ public class ProductDAO {
 				row.setCategory(rs.getString("category"));
 				row.setPrice(rs.getDouble("price"));
 				row.setImage(rs.getString("image"));
+				row.setDescription(rs.getString("description"));
+				row.setStatus(rs.getString("status"));
 
 			}
 		} catch (Exception e) {
@@ -176,6 +184,8 @@ public class ProductDAO {
 				row.setCategory(rs.getString("category"));
 				row.setPrice(rs.getDouble("price"));
 				row.setImage(rs.getString("image"));
+				row.setDescription(rs.getString("description"));
+				row.setStatus(rs.getString("status"));
 
 				products.add(row);
 			}

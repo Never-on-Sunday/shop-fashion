@@ -98,6 +98,26 @@ public class UserDAO {
 		return user;
 	}
 
+	public User getAUserByUserName(String username) {
+		User user = null;
+		try {
+			query = "SELECT * FROM account WHERE username=?";
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, username);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setusername(rs.getString("username"));
+				user.setpassword(rs.getString("password"));
+				user.setrole(rs.getString("role"));
+			}
+		} catch (SQLException e) {
+			System.out.print(e.getMessage());
+		}
+		return user;
+	}
+
 	public User getAUser(String username, String password) {
 		User user = null;
 		try {

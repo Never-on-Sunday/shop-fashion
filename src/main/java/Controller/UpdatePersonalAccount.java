@@ -37,7 +37,7 @@ public class UpdatePersonalAccount extends HttpServlet {
 				return;
 			}
 
-			user.setusername(request.getParameter("userName"));
+//			user.setusername(request.getParameter("userName"));
 			user.setpassword(request.getParameter("password"));
 			PersonalInfor personalInfor = personalInforBO.getPersonalInforByAccID(user.getId());
 			personalInfor.setFullName(request.getParameter("fullName"));

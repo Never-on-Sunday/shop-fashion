@@ -45,6 +45,8 @@ public class EditProductServlet extends HttpServlet {
 				fileImage = request.getParameter("product_image");
 			}
 			product.setImage(fileImage);
+			product.setDescription(request.getParameter("description"));
+			product.setStatus(request.getParameter("selectStatus"));
 
 			int res = productBO.updateAProduct(product);
 

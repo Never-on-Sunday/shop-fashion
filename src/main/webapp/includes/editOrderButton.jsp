@@ -45,36 +45,45 @@
 						<!-- Image -->
 						<div class="imageContainer" style="margin-bottom: 20px;">
 							<img class="card-img-top"
-								src="product-images/<%=orderDisplay.getProduct().getImage()%>"
+								src="<%=orderDisplay.getProduct().getImage()%>"
 								alt="Card image cap">
 						</div>
 
 						<!-- Select status -->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="product_id">Status</label>
-							<select name="selectStatus" class="form-select" aria-label="Default select example" style="margin-left: 16px;">
-								<option value="<%=orderDisplay.getOrder().getStatus()%>" selected><%=orderDisplay.getOrder().getStatus()%></option>
+							<%
+							String status = orderDisplay.getOrder().getStatus();
+							%>
+							<select name="selectStatus" class="form-select"
+								aria-label="Default select example" style="margin-left: 16px;">
+								<option value="<%=status%>" selected><%=status%></option>
 								<%
-								for (OrderStatus orderStatus : OrderStatus.values()) {
+								if (!(status.equals("Done") || status.equals("Cancel"))) {
+									for (OrderStatus orderStatus : OrderStatus.values()) {
 								%>
 								<option value="<%=orderStatus.name()%>"><%=orderStatus.name()%></option>
 								<%
 								}
+								}
 								%>
 							</select>
+
 						</div>
-						
-						<!-- Text input-->
+
+<%-- 						<!-- Text input-->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="address">Address</label>
 							<div class="col-md-4">
-								<input id="address" name="address" value="<%=orderDisplay.getOrder().getAddress()%>"
+								<input id="address" name="address"
+									value="<%=orderDisplay.getOrder().getAddress()%>"
 									class="form-control input-md" required="" type="text">
 
 							</div>
-						</div>
-						
-						<input type="hidden" name="orderID" value="<%=orderDisplay.getOrder().getOrderId()%>"/>
+						</div> --%>
+
+						<input type="hidden" name="orderID"
+							value="<%=orderDisplay.getOrder().getOrderId()%>" />
 						<!-- Submit Button -->
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"

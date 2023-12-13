@@ -38,7 +38,7 @@ public class CheckOutServlet extends HttpServlet {
 			HttpSession ses = request.getSession();
 			User user = (User) ses.getAttribute("authUser");
 			if (user == null || !user.getrole().equals("client")) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("login.jsp");
 				return;
 			}
 
@@ -52,7 +52,7 @@ public class CheckOutServlet extends HttpServlet {
 					order.setUid(user.getId());
 					order.setQuantity(cart.getQuantity());
 					order.setDate(sqlDate);
-					order.setStatus("Shipping");
+					order.setStatus("Handling");
 					order.setAddress(personalInfor.getPersonalInforByAccID(user.getId()).getAddress());
 					Product product = productBO.getAProduct(order.getProductID());
 					order.setOrderPrice(product.getPrice() * order.getQuantity());
