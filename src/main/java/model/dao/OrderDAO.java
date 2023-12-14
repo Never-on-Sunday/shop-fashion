@@ -41,6 +41,7 @@ public class OrderDAO {
 				row.setStatus(rs.getString("status"));
 				row.setOrderPrice(rs.getDouble("orderPrice"));
 				row.setAddress(rs.getString("address"));
+				row.setMessage(rs.getString("message"));
 			}
 		} catch (SQLException e) {
 			System.out.print(e.getMessage());
@@ -51,7 +52,7 @@ public class OrderDAO {
 	public int updateAnOrder(Order order) {
 		int res = 0;
 		try {
-			query = "UPDATE orders SET p_id=?, u_id=?, o_quantity=?, o_date=?, status=?, orderPrice=?, address=? WHERE o_id=?";
+			query = "UPDATE orders SET p_id=?, u_id=?, o_quantity=?, o_date=?, status=?, orderPrice=?, address=?, message=? WHERE o_id=?";
 			pst = this.con.prepareStatement(query);
 			pst.setInt(1, order.getProductID());
 			pst.setInt(2, order.getUid());
@@ -60,7 +61,8 @@ public class OrderDAO {
 			pst.setString(5, order.getStatus());
 			pst.setDouble(6, order.getOrderPrice());
 			pst.setString(7, order.getAddress());
-			pst.setInt(8, order.getOrderId());
+			pst.setString(8, order.getMessage());
+			pst.setInt(9, order.getOrderId());
 			res = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,7 +74,7 @@ public class OrderDAO {
 	public int addAnOrder(Order order) {
 		int res = 0;
 		try {
-			query = "INSERT INTO orders (p_id, u_id, o_quantity, o_date, status, orderPrice, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			query = "INSERT INTO orders (p_id, u_id, o_quantity, o_date, status, orderPrice, address, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			pst = this.con.prepareStatement(query);
 			pst.setInt(1, order.getProductID());
 			pst.setInt(2, order.getUid());
@@ -81,6 +83,7 @@ public class OrderDAO {
 			pst.setString(5, order.getStatus());
 			pst.setDouble(6, order.getOrderPrice());
 			pst.setString(7, order.getAddress());
+			pst.setString(8, order.getMessage());
 			res = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,6 +112,7 @@ public class OrderDAO {
 				row.setStatus(rs.getString("status"));
 				row.setOrderPrice(rs.getDouble("orderPrice"));
 				row.setAddress(rs.getString("address"));
+				row.setMessage(rs.getString("message"));
 				orders.add(row);
 			}
 
@@ -155,6 +159,7 @@ public class OrderDAO {
 				row.setStatus(rs.getString("status"));
 				row.setOrderPrice(rs.getDouble("orderPrice"));
 				row.setAddress(rs.getString("address"));
+				row.setMessage(rs.getString("message"));
 				orders.add(row);
 			}
 

@@ -30,6 +30,7 @@ List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders
 					<th scope="col">Quantity</th>
 					<th scope="col">Price</th>
 					<th scope="col">Date</th>
+					<th scope="col">Note</th>
 					<th scope="col">Status</th>
 					<th scope="col">Cancel</th>
 				</tr>
@@ -47,6 +48,7 @@ List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders
 					<td><%=orderDisplay.getOrder().getQuantity()%></td>
 					<td><%=orderDisplay.getOrder().getOrderPrice()%></td>
 					<td><%=orderDisplay.getOrder().getDate()%></td>
+					<td><%=orderDisplay.getOrder().getMessage()%></td>
 					<td><span class="badge badge-success"><%=orderDisplay.getOrder().getStatus()%></span></td>
 					<%
 					String status = orderDisplay.getOrder().getStatus();

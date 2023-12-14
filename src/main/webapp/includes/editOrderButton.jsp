@@ -71,16 +71,16 @@
 
 						</div>
 
-<%-- 						<!-- Text input-->
+ 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="address">Address</label>
+							<label class="col-md-4 control-label" for="message">Message from client</label>
 							<div class="col-md-4">
-								<input id="address" name="address"
-									value="<%=orderDisplay.getOrder().getAddress()%>"
+								<input id="message" name="message"
+									value="<%=orderDisplay.getOrder().getMessage()%>" readonly
 									class="form-control input-md" required="" type="text">
 
 							</div>
-						</div> --%>
+						</div>
 
 						<input type="hidden" name="orderID"
 							value="<%=orderDisplay.getOrder().getOrderId()%>" />

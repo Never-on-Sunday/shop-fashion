@@ -57,6 +57,7 @@ public class OrderNowServlet extends HttpServlet {
 			order.setDate(sqlDate);
 			order.setStatus("Handling");
 			order.setAddress(personalInfor.getPersonalInforByAccID(user.getId()).getAddress());
+			order.setMessage(request.getParameter("productMessage"));
 			Product product = productBO.getAProduct(order.getProductID());
 			order.setOrderPrice(product.getPrice() * order.getQuantity());
 			int res = orderBO.addAnOrder(order);

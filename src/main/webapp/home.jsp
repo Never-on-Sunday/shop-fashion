@@ -58,20 +58,27 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 							Category:
 							<%=p.getCategory()%></h6>
 						<h6 class="price">
-							Description: <%=p.getDescription()%></h6>
+							Description:
+							<%=p.getDescription()%></h6>
 						<h6 class="category">
 							Status:
-							<%=p.getStatus() %></h6>
-						<%String readOnly = "nones";
-						if(p.getStatus().equals("SoldOut")){
+							<%=p.getStatus()%></h6>
+						<%
+						String readOnly = "nones";
+						if (p.getStatus().equals("SoldOut")) {
 							readOnly = "none";
 						}
 						%>
 						<div class="mt-3 d-flex justify-content-between">
-							<a class="btn btn-dark" href="AddToCartServlet?id=<%=p.getId()%>" style="display: <%=readOnly%>;">Add
-								to Cart</a> <a class="btn btn-primary"
-								href="OrderNowServlet?quantity=1&productId=<%=p.getId()%>" style="display: <%=readOnly%>;">Buy
-								Now</a>
+							<%@ include file="/includes/addToCartButton.jsp"%>
+							<%@ include file="/includes/buyNowButton.jsp"%>
+
+							<a class="btn btn-dark" data-toggle="modal"
+								style="display: <%=readOnly%>; color: white;"
+								data-target="#addToCartButton<%=p.getId()%>">Add to Cart</a> <a
+								class="btn btn-primary" data-toggle="modal"
+								data-target="#buyNowButton<%=p.getId()%>"
+								style="display: <%=readOnly%>; color:white;">Buy Now</a>
 						</div>
 					</div>
 				</div>

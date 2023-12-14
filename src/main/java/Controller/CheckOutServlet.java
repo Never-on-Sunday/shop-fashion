@@ -54,6 +54,7 @@ public class CheckOutServlet extends HttpServlet {
 					order.setDate(sqlDate);
 					order.setStatus("Handling");
 					order.setAddress(personalInfor.getPersonalInforByAccID(user.getId()).getAddress());
+					order.setMessage(cart.getMessage());
 					Product product = productBO.getAProduct(order.getProductID());
 					order.setOrderPrice(product.getPrice() * order.getQuantity());
 

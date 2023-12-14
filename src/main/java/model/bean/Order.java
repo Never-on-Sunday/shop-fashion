@@ -11,6 +11,7 @@ public class Order {
 	private String status;
 	private double orderPrice;
 	private String address;
+	private String message;
 
 	public Order() {
 	}
@@ -92,5 +93,13 @@ public class Order {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
