@@ -70,6 +70,10 @@ List<OrderDisplay> orders = (List<OrderDisplay>) request.getAttribute("allOrders
 
 			</tbody>
 		</table>
+
+		<div style="display: flex; justify-content: flex-end;">
+			<%@include file="/includes/pageNavOrders.jsp"%>
+		</div>
 	</div>
 	<%@include file="/includes/footer.jsp"%>
 
