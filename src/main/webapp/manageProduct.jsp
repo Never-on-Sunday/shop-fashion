@@ -50,6 +50,7 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 		String status = (String) request.getAttribute("status");
 		if (status != null) {
 			request.removeAttribute("status");
+			if (status.equals("success")) {
 		%>
 		<div class="alert alert-success">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close"
@@ -57,6 +58,16 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 			<%=status%>
 		</div>
 		<%
+		} else if (status.equals("warningDelete")) {
+
+		boolean showModal = true;
+		%>
+
+		<%@include file="/includes/warningDeleteMessage.jsp"%>
+		<%
+		} else {
+
+		}
 		}
 		%>
 
@@ -107,7 +118,11 @@ List<Product> products = (List<Product>) request.getAttribute("allProducts");
 		</div>
 	</div>
 
-
+	<script type="text/javascript">
+		$(window).on('load', function() {
+			$('#confirmDeleteProduct').modal('show');
+		});
+	</script>
 	<%@ include file="/includes/footer.jsp"%>
 </body>
 </html>

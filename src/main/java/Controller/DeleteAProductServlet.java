@@ -35,9 +35,17 @@ public class DeleteAProductServlet extends HttpServlet {
 			}
 
 			int idProduct = Integer.parseInt(request.getParameter("product_id"));
-			int res = productBO.deleteAProduct(idProduct);
+			String confirmDelete = request.getParameter("confirmDelete");
+			if (productBO.numberProductExistInOrders(idProduct) == 0
+					|| (confirmDelete != null && confirmDelete.equals("true"))) {
+				int res = productBO.deleteAProduct(idProduct);
+				request.setAttribute("status", "Delete a product!");
 
-			request.setAttribute("status", "Delete a product");
+			} else {
+				request.setAttribute("status", "warningDelete");
+				request.setAttribute("product_id", idProduct + "");
+			}
+
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ManageProductsServlet");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

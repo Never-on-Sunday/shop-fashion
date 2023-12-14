@@ -11,6 +11,10 @@ public class ProductBO {
 	ProductDAO pD = new ProductDAO(HelpConnectDB.getConnection());
 	int productPerPage = 8;
 
+	public int numberProductExistInOrders(int productID) {
+		return pD.numberProductExistInOrders(productID);
+	}
+
 	public int deleteAProduct(int productID) {
 		return pD.deleteAProduct(productID);
 	}

@@ -21,6 +21,25 @@ public class ProductDAO {
 		this.con = con;
 	}
 
+	public int numberProductExistInOrders(int productID) {
+		int numRows = 0;
+		try {
+
+			query = "SELECT COUNT(*) AS row_count  FROM `orders` WHERE p_id=?";
+			pst = this.con.prepareStatement(query);
+			pst.setInt(1, productID);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				numRows = rs.getInt("row_count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return numRows;
+	}
+
 	public int deleteAProduct(int productID) {
 		int res = 0;
 		try {
