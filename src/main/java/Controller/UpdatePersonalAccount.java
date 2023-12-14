@@ -18,7 +18,7 @@ import model.bo.UserBO;
 /**
  * Servlet implementation class ManagePersonalAccount
  */
-@WebServlet("/UpdatePersonalAccount")
+@WebServlet("/UpdatePersonalAccountServlet")
 public class UpdatePersonalAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public class UpdatePersonalAccount extends HttpServlet {
 			int resUser = userBO.updateAnUser(user);
 			int resPersonalInfor = personalInforBO.updatePersonalInfor(personalInfor);
 
-			response.sendRedirect("GetPersonalAccount");
+			response.sendRedirect("GetPersonalAccountServlet");
 
 //			pw.print("update");
 //			response.sendRedirect("")

@@ -183,7 +183,7 @@ body {
 							<!-- Save changes button-->
 							<button class="btn btn-primary" type="submit">Save
 								changes</button>
-							<a class="btn btn-primary" href="GetPersonalAccount"
+							<a class="btn btn-primary" href="GetPersonalAccountServlet"
 								style="color: white;">Reset</a>
 						</form>
 
