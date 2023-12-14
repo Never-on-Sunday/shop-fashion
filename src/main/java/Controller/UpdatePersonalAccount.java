@@ -47,7 +47,13 @@ public class UpdatePersonalAccount extends HttpServlet {
 			int resUser = userBO.updateAnUser(user);
 			int resPersonalInfor = personalInforBO.updatePersonalInfor(personalInfor);
 
-			response.sendRedirect("GetPersonalAccountServlet");
+			if (user.getrole().equals("admin")) {
+				response.sendRedirect("ManageAccountsServlet");
+			} else if (user.getrole().equals("client")) {
+				response.sendRedirect("GetPersonalAccountServlet");
+			} else {
+				response.sendRedirect("index.jsp");
+			}
 
 //			pw.print("update");
 //			response.sendRedirect("")

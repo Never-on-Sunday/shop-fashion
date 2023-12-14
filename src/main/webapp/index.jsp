@@ -5,7 +5,6 @@
 <script>
 	window.onload = function() {
  		location.href = "LoginServlet"
-/* 		location.href = "test_modal.jsp" */
 	}
 </script>
 

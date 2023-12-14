@@ -73,11 +73,6 @@ DecimalFormat dcf = new DecimalFormat("#.##");
 						<table class="table">
 							<thead>
 								<tr>
-									<!-- 									<th class="text-center">
-										<div class="toggle-btn">
-											<div class="inner-circle"></div>
-										</div>
-									</th> -->
 									<th>Order #</th>
 									<th>ProductID</th>
 									<th>ProductName</th>
