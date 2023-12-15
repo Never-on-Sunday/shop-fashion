@@ -108,6 +108,7 @@ body {
 					<div class="card-body">
 						<form action="UpdatePersonalAccountServlet" method="get">
 							<!-- Form Group (username)-->
+							<input type="hidden" name="userID" value="<%=accountDisplay.getUser().getId() %>">
 							<div class="mb-3">
 								<label class="small mb-1" for="inputUsername">Your Full
 									Name</label> <input class="form-control" id="inputUsername"

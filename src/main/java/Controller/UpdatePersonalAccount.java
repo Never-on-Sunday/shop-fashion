@@ -37,20 +37,24 @@ public class UpdatePersonalAccount extends HttpServlet {
 				return;
 			}
 
-//			user.setusername(request.getParameter("userName"));
-			user.setpassword(request.getParameter("password"));
-			PersonalInfor personalInfor = personalInforBO.getPersonalInforByAccID(user.getId());
+			User userUpdate = new User();
+			userUpdate = userBO.getAUserByID(Integer.parseInt((String) request.getParameter("userID")));
+			userUpdate.setusername(request.getParameter("userName"));
+			userUpdate.setpassword(request.getParameter("password"));
+			PersonalInfor personalInfor = personalInforBO.getPersonalInforByAccID(userUpdate.getId());
 			personalInfor.setFullName(request.getParameter("fullName"));
 			personalInfor.setAddress(request.getParameter("address"));
 			personalInfor.setPhoneNumber(request.getParameter("phoneNumber"));
 
-			int resUser = userBO.updateAnUser(user);
+			int resUserUpdate = userBO.updateAnUser(userUpdate);
+			if (user.getrole().equals("client"))
+				ses.setAttribute("authUser", userUpdate);
 			int resPersonalInfor = personalInforBO.updatePersonalInfor(personalInfor);
 
 			if (user.getrole().equals("admin")) {
 				response.sendRedirect("ManageAccountsServlet");
 			} else if (user.getrole().equals("client")) {
-				response.sendRedirect("GetPersonalAccountServlet");
+				response.sendRedirect("GetPersonalAccountServlet?accID=" + userUpdate.getId());
 			} else {
 				response.sendRedirect("index.jsp");
 			}
