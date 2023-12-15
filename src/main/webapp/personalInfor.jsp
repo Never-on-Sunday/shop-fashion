@@ -154,10 +154,8 @@ body {
 								</div>
 							</div>
 							<!-- Save changes button-->
-							<button class="btn btn-primary" type="submit">Save
-								changes</button>
-							<a class="btn btn-primary" href="GetPersonalAccountServlet"
-								style="color: white;">Reset</a>
+							<button class="btn btn-primary" type="submit">Save changes</button>
+							<button class="btn btn-primary" type="reset">Reset</button>
 						</form>
 
 					</div>
