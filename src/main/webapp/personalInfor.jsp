@@ -108,6 +108,7 @@ body {
 					<div class="card-body">
 						<form action="UpdatePersonalAccountServlet" method="get">
 							<!-- Form Group (username)-->
+							<input type="hidden" name="userID" value="<%=accountDisplay.getUser().getId() %>">
 							<div class="mb-3">
 								<label class="small mb-1" for="inputUsername">Your Full
 									Name</label> <input class="form-control" id="inputUsername"
@@ -156,7 +157,7 @@ body {
 							<!-- Save changes button-->
 							<button class="btn btn-primary" type="submit">Save
 								changes</button>
-							<a class="btn btn-primary" href="GetPersonalAccountServlet"
+							<a class="btn btn-primary" href="GetPersonalAccountServlet?accID=<%=accountDisplay.getUser().getId() %>"
 								style="color: white;">Reset</a>
 						</form>
 
